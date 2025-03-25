@@ -1,31 +1,32 @@
 /*
   created on Mar 2025
   by yoochan Han
-  This program print distance in seria with sonar
+  This program print distance in serial with SONAR
 */
 
-const int trigPin = 9;
-const int echoPin = 10;
+const int TRIG_PIN = 3;
+const int ECHO_PIN = 2;
+const float SPEED_OF_SOUND = 0.0343;
 
-float duration, distance;
+float duration;
+float distance;
 
 void setup() {
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
+  pinMode(TRIG_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
   Serial.begin(9600);
 }
 
 void loop() {
-  digitalWrite(trigPin, LOW);
+  digitalWrite(TRIG_PIN, LOW);
   delayMicroseconds(2);
-  digitalWrite(trigPin, HIGH);
+  digitalWrite(TRIG_PIN, HIGH);
   delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
+  digitalWrite(TRIG_PIN, LOW);
 
-  duration = pulseIn(echoPin, HIGH);
-  distance = (duration*.0343)/2;
+  duration = pulseIn(ECHO_PIN, HIGH);
+  distance = (duration * SPEED_OF_SOUND)/2; //get distance in cm
   Serial.print("Distance : ");
-  Serial.println(distance);
-  Serial.print("Distance");
+  Serial.print(String(distance) + " cm\n");
   delay(100);
 }
